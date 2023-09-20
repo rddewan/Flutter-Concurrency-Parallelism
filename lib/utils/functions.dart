@@ -41,3 +41,35 @@ Future<int>  simpleTask2Future() async{
   debugPrint('Task 2 ended');
   return sum;
 }
+
+Future<int> simpleTask1FutureConcurrent() async {
+  debugPrint('Task 1 started');
+  var sum  = 0;
+
+  for (var i = 0; i < 30; i++) {
+    await Future.delayed(const Duration(seconds: 1), () {
+      sum += i;
+      debugPrint('Task 1 sum: $sum');
+    });
+    
+  }
+  debugPrint('Task 1 ended');
+
+  return sum;
+}
+
+Future<int>  simpleTask2FutureConcurrent() async{
+  debugPrint('Task 2 started');
+  var sum  = 0;
+
+  for (var i = 0; i < 10; i++) {
+    await Future.delayed(const Duration(seconds: 1), () {
+      sum += i;
+      debugPrint('Task 2 sum: $sum');
+    });
+  }
+
+  debugPrint('Task 2 ended');
+
+  return sum;
+}
