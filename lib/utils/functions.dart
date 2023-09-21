@@ -91,3 +91,19 @@ Future<String>  simpleTask3FutureConcurrent() async{
 
   return completer.future;
 }
+
+Future<int>  simpleTask4FutureConcurrent(int count) async{
+  debugPrint('Task 4 started');
+  var sum  = 0;
+
+  for (var i = 0; i < count; i++) {
+    await Future.delayed(const Duration(seconds: 1), () {
+      sum += i;
+      debugPrint('Task 2 sum: $sum');
+    });
+  }
+
+  debugPrint('Task 4 ended');
+
+  return sum;
+}

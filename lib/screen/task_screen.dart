@@ -1,5 +1,6 @@
 
 import 'package:concurrency_demo/utils/functions.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -102,7 +103,30 @@ class _TaskScreenState extends State<TaskScreen> {
 
               }, 
               child: const Text('Task 5'),
-            )
+            ),
+
+            const SizedBox(height: 16,),
+            FilledButton(
+              onPressed: () async {
+                debugPrint('Task Started');
+
+
+                
+                final a = compute((message) => simpleTask1FutureConcurrent(), null);
+                final b = compute((message) =>  simpleTask2FutureConcurrent(), null);
+                final c = compute((message) => simpleTask3FutureConcurrent(), null);
+                final d = compute(simpleTask4FutureConcurrent,20);
+
+                debugPrint('Task 1 value: ${await a}');
+                debugPrint('Task 2 value: ${await b}');
+                debugPrint('Task 3 value: ${await c}');
+                debugPrint('Task 3 value: ${await d}');
+                debugPrint('Task 1 , 2 and 3 completed');
+                debugPrint('Task Ended');
+
+              }, 
+              child: const Text('Task 6'),
+            ),
 
           ],
         ),
