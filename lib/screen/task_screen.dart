@@ -83,6 +83,25 @@ class _TaskScreenState extends State<TaskScreen> {
 
               }, 
               child: const Text('Task 4'),
+            ),
+
+            const SizedBox(height: 16,),
+            FilledButton(
+              onPressed: () async {
+                debugPrint('Task Started');
+                
+                final a = simpleTask1FutureConcurrent();
+                final b = simpleTask2FutureConcurrent();
+                final c = simpleTask3FutureConcurrent();
+
+                debugPrint('Task 1 value: ${await a}');
+                debugPrint('Task 2 value: ${await b}');
+                debugPrint('Task 3 value: ${await c}');
+                debugPrint('Task 1 , 2 and 3 completed');
+                debugPrint('Task Ended');
+
+              }, 
+              child: const Text('Task 5'),
             )
 
           ],

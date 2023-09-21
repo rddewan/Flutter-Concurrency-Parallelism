@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 
 int simpleTask1() {
@@ -72,4 +74,20 @@ Future<int>  simpleTask2FutureConcurrent() async{
   debugPrint('Task 2 ended');
 
   return sum;
+}
+
+Future<String>  simpleTask3FutureConcurrent() async{
+  debugPrint('Task 3 started');
+  var completer = Completer<String>();
+  
+
+  Future.delayed(const Duration(seconds: 5), () {    
+    debugPrint('Task 3 value: Richard');
+    completer.complete('Richard');
+
+  });
+
+  debugPrint('Task 3 ended');
+
+  return completer.future;
 }
