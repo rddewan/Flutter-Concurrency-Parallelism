@@ -1,3 +1,4 @@
+import 'package:concurrency_demo/screen/photo_screen.dart';
 import 'package:concurrency_demo/screen/task_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       
       debugShowCheckedModeBanner: false,
-      home: TaskScreen(),
+      home: PhotoScreen(),
     );
   }
 }
