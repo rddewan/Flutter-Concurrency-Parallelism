@@ -31,7 +31,7 @@ class _PhotoScreenState extends State<PhotoScreen> {
         title: const Text('Photo'),
       ),
       body: FutureBuilder<List<Photo>>(
-        future: networkService.fetchPhotos(),
+        future: networkService.fetchPhotosFromApi(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(

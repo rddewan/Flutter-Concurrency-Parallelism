@@ -51,13 +51,31 @@ class NetworkService {
       if (stackTrace is StackTrace) {
         // do something 
       }
-      
+
       throw Exception(error.toString());
     }
 
     return result as List<Photo>;
   }
+
+  Future<List<Photo>> fetchPhotosFromApi() async {
+    
+    final response = await client.get(
+      Uri.parse('https://jsonplaceholder.typicode.com/photos'),
+    );
+
+    final result = await Isolate.run(
+      () => mapToPhotos(response.body),
+      debugName: 'Parse a photo json'
+    );
+   
+    return result;
+  }
+
+
 }
+
+
 
 // top level function for isolate
 // A function that converts a response body into a List<Photo>.
@@ -71,4 +89,14 @@ List<Photo> parsePhotos(List<dynamic> args) {
     .toList() as List<Photo>;
   
   Isolate.exit(responsePort, result);
+}
+
+List<Photo> mapToPhotos(String responseBody) {
+    
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  final result = parsed.map<Photo>((json) => Photo.fromJson(json))
+    .toList() as List<Photo>;
+  
+  return result;
 }
