@@ -25,10 +25,35 @@ class NetworkService {
         response.body,
         receivePort.sendPort,
       ],
+      // onExit argument makes the isolate send null to the port upon exiting.
+      onExit: receivePort.sendPort,
+      // onError argument makes an uncaught error send a list of two strings 
+      // to the port (the toString of both the error and stack trace)
+      onError: receivePort.sendPort,
+      debugName: 'Parse a photo json'
     );
 
     // get the first element from the stream
     final result = await receivePort.first;
+
+    // check if result is null, 
+    // meaning the isolate terminated without sending results
+    if (result == null) {
+      throw Exception('Isolate terminated without result');
+    }
+
+    //check if the result is a list, meaning an uncaught error occurred
+    if (result is List && result is !List<Photo>) {
+      var error = result[0];
+      var stackTrace = result[1];
+
+      // check if result[1] is StackTrace
+      if (stackTrace is StackTrace) {
+        // do something 
+      }
+      
+      throw Exception(error.toString());
+    }
 
     return result as List<Photo>;
   }
