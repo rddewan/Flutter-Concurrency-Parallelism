@@ -1,6 +1,6 @@
 
 class Photo {
-  final int albumId;
+  final String albumId;
   final int id;
   final String title;
   final String url;
@@ -16,7 +16,7 @@ class Photo {
 
   factory Photo.fromJson(Map<String, dynamic> json) {
     return Photo(
-      albumId: json['albumId'] as int,
+      albumId: json['albumId'] as String,
       id: json['id'] as int,
       title: json['title'] as String,
       url: json['url'] as String,
